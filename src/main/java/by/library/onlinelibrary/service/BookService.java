@@ -41,8 +41,13 @@ public class BookService {
     }
 
     @Transactional
-    public void updateBook(int id, String title, String description, String imageUri, int authorId) {
-        Author author = authorService.getAuthorById(authorId);
-        bookDao.updateBook(id, title, description, imageUri, author);
+    public Book updateBook(Book book, int authorId) {
+        Book newBook = bookDao.getBookByTitle(book.getTitle());
+        if (newBook == null) {
+            Author author = authorService.getAuthorById(authorId);
+            book.setAuthor(author);
+            return bookDao.saveAndFlush(book);
+        } else return null;
     }
+
 }

@@ -26,13 +26,12 @@ public class BookController {
     }
 
     @GetMapping("/all")
-    public ModelAndView getAllBooks(HttpSession httpSession) {
+    public ModelAndView getAllBooks(@SessionAttribute(value = "user", required = false) User user) {
         ModelAndView mv = new ModelAndView("book");
         mv.addObject("books", bookService.getAllBooks());
-        User user = (User) httpSession.getAttribute("user");
-        if (user.getRole().toString().equalsIgnoreCase("ADMIN")) {
-            mv.addObject("authors", authorService.getAllAuthors());
-            return mv;
+            if (user != null && user.getRole().toString().equalsIgnoreCase("ADMIN")) {
+                mv.addObject("authors", authorService.getAllAuthors());
+                return mv;
         }
         return mv;
     }
@@ -42,14 +41,15 @@ public class BookController {
         Author author = authorService.getAuthorById(authorId);
         book.setAuthor(author);
         Book newBook = bookService.createNewBook(book);
-        if (newBook != null) {
-        ModelAndView mv = new ModelAndView("redirect:/book/all");
+        ModelAndView mv = new ModelAndView("book");
         mv.addObject("books", bookService.getAllBooks());
         mv.addObject("authors", authorService.getAllAuthors());
+        if (newBook != null) {
+            mv.addObject("bk", true);
+        } else {
+            mv.addObject("bk", false);
+        }
         return mv;
-        } else return new ModelAndView("redirect:/book?error=true")
-                .addObject("books", bookService.getAllBooks())
-                .addObject("authors", authorService.getAllAuthors());
     }
 
     @PostMapping("/delete")
@@ -75,11 +75,16 @@ public class BookController {
     }
 
     @PostMapping("/update")
-    public ModelAndView updateBook(@RequestParam int id, @RequestParam String title, @RequestParam String description, @RequestParam String imageUri, @RequestParam int authorId) {
+    public ModelAndView updateBook(@ModelAttribute Book book, @RequestParam int authorId) {
+        Book newBook = bookService.updateBook(book, authorId);
         ModelAndView mv = new ModelAndView("book");
-        bookService.updateBook(id, title, description, imageUri, authorId);
         mv.addObject("books", bookService.getAllBooks());
         mv.addObject("authors", authorService.getAllAuthors());
+        if (newBook != null) {
+            mv.addObject("bk", true);
+        } else {
+            mv.addObject("bk", false);
+        }
         return mv;
     }
 }

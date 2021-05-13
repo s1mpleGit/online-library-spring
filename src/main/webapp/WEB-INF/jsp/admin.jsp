@@ -103,7 +103,7 @@
 </c:if>
 <c:if test="${sessionScope.user.role.toString() == 'ADMIN' && !empty book}">
     <div class="fld">
-        <form action="<c:url value="/book/update" />" method="post" modelAttribute="newBook">
+        <form action="<c:url value="/book/update" />" method="post">
             <div class="text">
                 <h1>Edit book info</h1>
             </div>

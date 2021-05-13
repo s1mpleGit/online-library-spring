@@ -21,4 +21,7 @@ public interface CardDao extends JpaRepository<Card, Long> {
     @Query("delete from Card c where c.book = :book")
     @Modifying
     void deleteCardByBook(Book book);
+
+    Card getCardByBookAndUser(Book book, User user);
+
 }

@@ -45,6 +45,10 @@
         .msg {
             color: red;
         }
+
+        .msg2 {
+            color: darkgreen;
+        }
     </style>
 </head>
 <header>
@@ -125,8 +129,13 @@
                 <h1>Create new book</h1>
             </div>
             <div class="msg">
-                <c:if test="${param.error}">
+                <c:if test="${bk==false}">
                     <h2>Same book already exist</h2>
+                </c:if>
+            </div>
+            <div class="msg2">
+                <c:if test="${bk==true}">
+                    <h2>Successfull process</h2>
                 </c:if>
             </div>
             <label>

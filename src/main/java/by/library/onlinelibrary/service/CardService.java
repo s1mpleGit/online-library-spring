@@ -27,17 +27,17 @@ public class CardService {
 
     @Transactional
     public Card getCardByBookIdAndUserId(int bookId, int userId) {
-//        Book book = ;
-//        User user = ;
-//        Card card = cardDao.getCardByBookAndUser(bookId, userId);
-        List<Card> cards = cardDao.getAllCards();
-        long check = cards.stream()
-                .filter(c -> c.getBook().getId() == bookId && c.getUser().getId() == userId)
-                .count();
-        if (check == 0) {
+        Book book = bookDao.getBookById(bookId);
+        User user = userDao.getUserById(userId);
+        Card card = cardDao.getCardByBookAndUser(book, user);
+//        List<Card> cards = cardDao.getAllCards();
+//        long check = cards.stream()
+//                .filter(c -> c.getBook().getId() == bookId && c.getUser().getId() == userId)
+//                .count();
+        if (card == null) {
             Card newCard = Card.builder()
-                    .book(bookDao.getBookById(bookId))
-                    .user(userDao.getUserById(userId))
+                    .book(book)
+                    .user(user)
                     .return_date(LocalDate.now().plusWeeks(1))
                     .build();
             cardDao.saveAndFlush(newCard);

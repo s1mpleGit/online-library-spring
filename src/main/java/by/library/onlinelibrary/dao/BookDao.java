@@ -17,7 +17,7 @@ public interface BookDao extends JpaRepository<Book, Long> {
     @Modifying
     @Query("delete from Book b where b.id = :id")
     void deleteBookById(int id);
-    @Modifying
-    @Query("update Book b set b.title = :title, b.description = :description, b.imageUri = :imageUri, b.author = :author where b.id = :id")
-    void updateBook(int id, String title, String description, String imageUri, Author author);
+//    @Modifying
+//    @Query("update Book b set b.title = :title, b.description = :description, b.imageUri = :imageUri, b.author = :author where b.id = :id")
+//    void updateBook(int id, String title, String description, String imageUri, Author author);
 }

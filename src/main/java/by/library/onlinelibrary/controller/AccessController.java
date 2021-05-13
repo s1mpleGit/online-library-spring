@@ -34,7 +34,6 @@ public class AccessController {
     }
 
     @PostMapping("/index")
-    @Transactional
     public ModelAndView loginUser(@RequestParam String login, @RequestParam String password, HttpSession httpSession) {
         User user = userService.loginUser(login, password);
         if (user != null) {
@@ -56,7 +55,6 @@ public class AccessController {
     }
 
     @PostMapping("/registration")
-    @Transactional
     public ModelAndView registrationUser(@ModelAttribute User user, HttpSession httpSession) {
         User newUser = userService.registrationUser(user.getLogin());
         if (newUser == null) {
