@@ -44,7 +44,8 @@
         }
 
         .msg {
-            color: red;
+            color: darkgreen;
+            text-align: center;
         }
     </style>
 </head>
@@ -94,17 +95,17 @@
 <br>
 <c:if test="${sessionScope.user.status.toString() == 'BLOCK'}">
     <h1 class="text">${sessionScope.user.name}, you are blocked by admin</h1>
+    <div class="msg">
+        <c:if test="${msg==true}">
+            <h2>Message successfully sent</h2>
+        </c:if>
+    </div>
+    <div class="msg">
+        <c:if test="${msg==false}">
+            <h2>Message has not been sent</h2>
+        </c:if>
+    </div>
     <div class="fld">
-        <div class="msg">
-            <c:if test="${msg==true}">
-                <h2>Message successfully sent</h2>
-            </c:if>
-        </div>
-        <div class="msg">
-            <c:if test="${msg==false}">
-                <h2>Message has not been sent</h2>
-            </c:if>
-        </div>
         <form action="<c:url value="/user/message" />" method="post">
             <input name="userId" type="hidden" value="${sessionScope.user.id}">
             <label for="message">

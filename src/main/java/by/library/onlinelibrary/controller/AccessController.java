@@ -71,6 +71,7 @@ public class AccessController {
 
         if (httpSession != null) {
             httpSession.invalidate();
+            
         }
         return new ModelAndView("redirect:/index");
     }

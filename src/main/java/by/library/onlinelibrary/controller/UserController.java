@@ -19,6 +19,11 @@ public class UserController {
     private final BookService bookService;
     private final AuthorService authorService;
 
+    @GetMapping
+    public ModelAndView userMainPage() {
+        return new ModelAndView("user");
+    }
+
     @GetMapping("/info")
     public ModelAndView userPage() {
         return new ModelAndView("user");

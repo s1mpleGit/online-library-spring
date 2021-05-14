@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Error page</title>
-    <link rel="icon" href="images/favicon.ico" type="image/ico">
+    <link rel="icon" href="../../images/favicon.ico" type="image/ico">
     <style>
         .text {
             text-align: center;

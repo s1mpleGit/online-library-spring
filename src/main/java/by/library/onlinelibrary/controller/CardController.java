@@ -22,6 +22,11 @@ public class CardController {
     private final CardService cardService;
     private final BookService bookService;
 
+    @GetMapping
+    public ModelAndView cardPage() {
+        return new ModelAndView("card");
+    }
+
     @GetMapping("/all")
     public ModelAndView getAllCards() {
         ModelAndView mv = new ModelAndView("card");
